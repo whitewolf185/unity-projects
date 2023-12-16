@@ -2,14 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InputController : MonoBehaviour
 {
+    // event triggers
     [SerializeField] private double _inputWindow;
-    [SerializeField] private GameObject _camera;
-    
+
+    [SerializeField] private UnityEvent _objectTriggers;
+
     private InputControllerNamespace.PlayerInput _input;
     private Stopwatch _timeElapsed;
+
+    
 
     private void Awake()
     {
@@ -31,14 +36,12 @@ public class InputController : MonoBehaviour
 
     private void OnDunka()
     {
-        
         double elapsedTime = _timeElapsed.ElapsedMilliseconds;
         UnityEngine.Debug.Log(elapsedTime.ToString());
         if (elapsedTime <= _inputWindow)
         {
-            _camera.GetComponent<Transform>().localPosition += new Vector3(1,0,0);
+            _objectTriggers.Invoke();
         }
-        
     }
 
     public void ResetInputWindow()
