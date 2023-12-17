@@ -74,3 +74,4 @@ crashlytics-build.properties
 
 # My settings
 GDD/
+**/Design/
