@@ -615,7 +615,16 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 0.3
+        m_Name: TextLiveTime
+        m_Overridden: 1
+      - m_Value: 0.125
+        m_Name: LinesLiveTime
+        m_Overridden: 1
+      - m_Value: 0.2
+        m_Name: StringsSpeed
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -633,7 +642,10 @@ VisualEffect:
     m_Gradient:
       m_Array: []
     m_NamedObject:
-      m_Array: []
+      m_Array:
+      - m_Value: {fileID: 2800000, guid: 996bb380787b16d498f716236c91c3c6, type: 3}
+        m_Name: TextMessageTexture
+        m_Overridden: 1
     m_Bool:
       m_Array: []
 --- !u!1 &963194225
@@ -877,7 +889,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1089871883}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: 4e1fad0885097ae458d8d32fbab6721d, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: 4fcd5e911de0af948b5e366e3565e6bf, type: 3}
   m_InitialEventName: 
   m_InitialEventNameOverriden: 1
   m_StartSeed: 0
@@ -886,7 +898,19 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 0.3
+        m_Name: TextLiveTime
+        m_Overridden: 1
+      - m_Value: 0.125
+        m_Name: StringsLiveTime
+        m_Overridden: 1
+      - m_Value: 0.2
+        m_Name: StringsSpeed
+        m_Overridden: 1
+      - m_Value: 0.125
+        m_Name: LinesLiveTime
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -904,7 +928,10 @@ VisualEffect:
     m_Gradient:
       m_Array: []
     m_NamedObject:
-      m_Array: []
+      m_Array:
+      - m_Value: {fileID: 2800000, guid: 0b2b711515b4934428e9b1c0f92fb2f3, type: 3}
+        m_Name: TextMessageTexture
+        m_Overridden: 1
     m_Bool:
       m_Array: []
 --- !u!4 &1089871886
@@ -945,11 +972,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputWindow: 300
-  _objectTriggers:
+  showButtonTimeInLog: 0
+  _unkaVFX: {fileID: 1089871885}
+  _dunkaVFX: {fileID: 961837205}
+  _enableMove: 1
+  _comboToMove: 2 1 1
+  _movementTriggers:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1127876657}
-        m_TargetAssemblyTypeName: ObjectMove, Assembly-CSharp
+        m_TargetAssemblyTypeName: BumboxMove, Assembly-CSharp
         m_MethodName: StartMove
         m_Mode: 1
         m_Arguments:
@@ -960,8 +992,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _unkaVFX: {fileID: 1089871885}
-  _dunkaVFX: {fileID: 961837205}
+  _enableAttack: 0
+  _comboToAttack: 
+  _attackTriggers:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1127876651
 MonoBehaviour:
   m_ObjectHideFlags: 0

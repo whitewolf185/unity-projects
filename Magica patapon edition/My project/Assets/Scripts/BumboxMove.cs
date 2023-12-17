@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-public class ObjectMove : MonoBehaviour
+public class BumboxMove : MonoBehaviour
 {
     // movement
     [SerializeField] private float _acceleration;
