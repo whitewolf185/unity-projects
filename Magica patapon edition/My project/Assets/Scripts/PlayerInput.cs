@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-namespace InputControllerNamespace
+namespace InputController
 {
     public partial class @PlayerInput: IInputActionCollection2, IDisposable
     {
@@ -46,6 +46,15 @@ namespace InputControllerNamespace
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""9ec68a55-128b-4d63-bdd6-669ab865efb9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -70,6 +79,17 @@ namespace InputControllerNamespace
                     ""action"": ""Unka"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b6ba99a2-2881-4f59-b7ca-69ce601142e4"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -80,6 +100,7 @@ namespace InputControllerNamespace
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Dunka = m_Player.FindAction("Dunka", throwIfNotFound: true);
             m_Player_Unka = m_Player.FindAction("Unka", throwIfNotFound: true);
+            m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -143,12 +164,14 @@ namespace InputControllerNamespace
         private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
         private readonly InputAction m_Player_Dunka;
         private readonly InputAction m_Player_Unka;
+        private readonly InputAction m_Player_Pause;
         public struct PlayerActions
         {
             private @PlayerInput m_Wrapper;
             public PlayerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
             public InputAction @Dunka => m_Wrapper.m_Player_Dunka;
             public InputAction @Unka => m_Wrapper.m_Player_Unka;
+            public InputAction @Pause => m_Wrapper.m_Player_Pause;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -164,6 +187,9 @@ namespace InputControllerNamespace
                 @Unka.started += instance.OnUnka;
                 @Unka.performed += instance.OnUnka;
                 @Unka.canceled += instance.OnUnka;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -174,6 +200,9 @@ namespace InputControllerNamespace
                 @Unka.started -= instance.OnUnka;
                 @Unka.performed -= instance.OnUnka;
                 @Unka.canceled -= instance.OnUnka;
+                @Pause.started -= instance.OnPause;
+                @Pause.performed -= instance.OnPause;
+                @Pause.canceled -= instance.OnPause;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -195,6 +224,7 @@ namespace InputControllerNamespace
         {
             void OnDunka(InputAction.CallbackContext context);
             void OnUnka(InputAction.CallbackContext context);
+            void OnPause(InputAction.CallbackContext context);
         }
     }
 }
