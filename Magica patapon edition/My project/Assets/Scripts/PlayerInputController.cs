@@ -44,6 +44,10 @@ For example, if you want 'Unka Dunka Dunka' you must enter '2 1 1'")]
     private const int unkaAction = 2;
     private const int dunkaAction = 1;
 
+    // pause game
+    private bool isPaused = false;
+    [SerializeField] private AudioSource _audioSource;
+
 
     private void Awake()
     {
@@ -52,6 +56,7 @@ For example, if you want 'Unka Dunka Dunka' you must enter '2 1 1'")]
 
         _input.Player.Dunka.performed += context => OnCommand(dunkaAction);
         _input.Player.Unka.performed += context => OnCommand(unkaAction);
+        _input.Player.Pause.performed += context => OnPause();
     }
 
     private void Start()
@@ -59,6 +64,7 @@ For example, if you want 'Unka Dunka Dunka' you must enter '2 1 1'")]
         // in scane restart
         previousComboLen = 0;
         comboSystem = new List<int>();
+        isPaused = false;
     }
 
     private void OnEnable()
@@ -73,6 +79,12 @@ For example, if you want 'Unka Dunka Dunka' you must enter '2 1 1'")]
 
     private void OnCommand(int buttonType)
     {
+        if (isPaused)
+        {
+            UnityEngine.Debug.Log("Game is paused");
+            return;
+        }
+        
         double elapsedTime = _timeElapsed.ElapsedMilliseconds;
         if (showButtonTimeInLog) { UnityEngine.Debug.Log(elapsedTime.ToString()); }
         if (elapsedTime <= _inputWindow)
@@ -113,6 +125,26 @@ For example, if you want 'Unka Dunka Dunka' you must enter '2 1 1'")]
             comboSystem.Clear();
         }
     }
+
+    private void OnPause()
+    {
+        // if game NOT paused
+        if (!isPaused)
+        {
+            isPaused = true;
+            Time.timeScale = 0f;
+            _audioSource.Stop();
+            _timeElapsed.Stop();
+        } else
+        {
+            isPaused = false;
+            Time.timeScale = 1f;
+            _audioSource.Play();
+            _timeElapsed.Start();
+        }
+        
+    }
+
     private void ResetComboKeys()
     {
         comboSystem.Clear();
