@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.VFX;
@@ -105,6 +106,11 @@ For example, if you want 'Unka Dunka Dunka' you must enter '2 1 1'")]
             // is combination successful
             if (_enableMove && _comboToMove == comboStr)
             {
+                if (BattleMode.battleIsOn)
+                {
+                    UnityEngine.Debug.LogWarning("You cannot walk, while fighting");
+                    return;
+                }
                 UnityEngine.Debug.Log("You have been triggered move events");
                 _movementTriggers.Invoke();
                 ResetComboKeys();
@@ -131,11 +137,18 @@ For example, if you want 'Unka Dunka Dunka' you must enter '2 1 1'")]
         // if game NOT paused
         if (!isPaused)
         {
-            isPaused = true;
-            Time.timeScale = 0f;
-            _audioSource.Stop();
-            _timeElapsed.Stop();
-        } else
+            //isPaused = true;
+            //Time.timeScale = 0f;
+            //_audioSource.Stop();
+            //_timeElapsed.Stop();
+
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+        }
+        else
         {
             isPaused = false;
             Time.timeScale = 1f;

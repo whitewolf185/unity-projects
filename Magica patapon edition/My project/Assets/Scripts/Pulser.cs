@@ -11,6 +11,8 @@ public class Pulser : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _pulseSize = 1.15f;
+        _returnSpeed = 5f;
         _startSize = transform.localScale;
         if (_useTestBeat)
         {
